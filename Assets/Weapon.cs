@@ -10,19 +10,55 @@ public class Weapon : MonoBehaviour
     [SerializeField] float damage = 25f;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] GameObject hitFX;
+    [SerializeField] Ammo ammoSlot;
+    [SerializeField] AmmoType ammoType;
+    [SerializeField] float timeBetweenShots;
 
+    [SerializeField] bool isAuto = false;
+
+    bool canShoot = true;
+
+
+    private void OnEnable()
+    {
+        canShoot = true;
+    }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+
+        if (isAuto)
         {
-            Shoot();
+            if (Input.GetMouseButton(0) && ammoSlot.GetAmmo(ammoType) > 0)
+            {
+                if(canShoot) StartCoroutine(Shoot());
+
+            }
         }
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && ammoSlot.GetAmmo(ammoType) > 0)
+            {
+                if (canShoot) StartCoroutine(Shoot());
+
+            }
+        }
+            
+        
+
+        
     }
 
-    private void Shoot()
+    IEnumerator Shoot()
     {
+        canShoot = false;
+        GetComponent<Animator>().SetTrigger("shoot");
         PlayMuzzleFlash();
         ProcessRaycast();
+        ammoSlot.ReduceAmmoAmount(ammoType);
+        FindObjectOfType<WeaponSwitcher>().enabled = false;
+        yield return new WaitForSeconds(timeBetweenShots);
+        FindObjectOfType<WeaponSwitcher>().enabled = true;
+        canShoot = true;
     }
 
     private void PlayMuzzleFlash()

@@ -55,6 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Ammo.cs" />
+     <Compile Include="Assets\AmmoPickup.cs" />
+     <Compile Include="Assets\AmmoType.cs" />
      <Compile Include="Assets\DeathHandler.cs" />
      <Compile Include="Assets\EnemyAI.cs" />
      <Compile Include="Assets\EnemyAttack.cs" />
@@ -62,6 +65,7 @@
      <Compile Include="Assets\PlayerHealth.cs" />
      <Compile Include="Assets\SceneLoader.cs" />
      <Compile Include="Assets\Weapon.cs" />
+     <Compile Include="Assets\WeaponSwitcher.cs" />
      <Compile Include="Assets\WeaponZoom.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
